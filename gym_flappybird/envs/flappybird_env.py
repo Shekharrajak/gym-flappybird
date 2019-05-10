@@ -195,7 +195,15 @@ class FlappybirdEnv(gym.Env):
       'playerMidPosX': playerMidPosX,
       'playerMidPosY': playerMidPosY
     }
-    self.info = {}
+    self.info = {
+      'upperPipes': [
+        {'x': int(SCREENWIDTH), 'y': int(SCREENHEIGHT) }
+      ],
+
+      'lowerPipes': [
+        {'x': int(SCREENWIDTH), 'y': int(SCREENHEIGHT) }
+      ]
+    }
 
   def _showWelcomeAnimation(self):
     """Shows welcome screen animation of flappy bird"""
