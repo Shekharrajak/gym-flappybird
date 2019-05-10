@@ -18,6 +18,21 @@ BASEY        = SCREENHEIGHT * 0.79
 # image, sound and hitmask  dicts
 IMAGES, SOUNDS, HITMASKS = {}, {}, {}
 
+PLAYER_WIDTH = 34
+PLAYER_HEIGHTS = 24
+
+BACKGROUNDS_WIDTH = 288
+BACKGROUNDS_HEIGHTS = 512
+
+BASE_WIDTH = 336
+BASE_HEIGHTS = 112
+
+PIPE_WIDTH = 52
+PIPE_HEIGHTS = 320
+
+NUMBER_WIDTH = 24
+NUMBER_HEIGHT = 36
+
 # absoulte path from the system
 ASSETS_PATH = os.path.dirname(__file__) + os.path.join('/assets/')
 # list of all possible players (tuple of 3 positions of flap)
@@ -100,97 +115,110 @@ class FlappybirdEnv(gym.Env):
   def _load(self):
     print('loading ..')
     # numbers sprites for score display
+    """
     IMAGES['numbers'] = (
-        pygame.image.load(ASSETS_PATH + 'sprites/0.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/1.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/2.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/3.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/4.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/5.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/6.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/7.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/8.png').convert_alpha(),
-        pygame.image.load(ASSETS_PATH + 'sprites/9.png').convert_alpha()
-    )
+                    pygame.image.load(ASSETS_PATH + 'sprites/0.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/1.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/2.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/3.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/4.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/5.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/6.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/7.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/8.png').convert_alpha(),
+                    pygame.image.load(ASSETS_PATH + 'sprites/9.png').convert_alpha()
+                )
 
-    # game over sprite
-    IMAGES['gameover'] = pygame.image.load(ASSETS_PATH + 'sprites/gameover.png').convert_alpha()
-    # message sprite for welcome screen
-    IMAGES['message'] = pygame.image.load(ASSETS_PATH + 'sprites/message.png').convert_alpha()
-    # base (ground) sprite
-    IMAGES['base'] = pygame.image.load(ASSETS_PATH + 'sprites/base.png').convert_alpha()
+                # game over sprite
+                IMAGES['gameover'] = pygame.image.load(ASSETS_PATH + 'sprites/gameover.png').convert_alpha()
+                # message sprite for welcome screen
+                IMAGES['message'] = pygame.image.load(ASSETS_PATH + 'sprites/message.png').convert_alpha()
+                # base (ground) sprite
+                IMAGES['base'] = pygame.image.load(ASSETS_PATH + 'sprites/base.png').convert_alpha()
+    """
 
     # sounds
     if 'win' in sys.platform:
         soundExt = '.wav'
     else:
         soundExt = '.ogg'
-
-    SOUNDS['die']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/die' + soundExt)
-    SOUNDS['hit']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/hit' + soundExt)
-    SOUNDS['point']  = pygame.mixer.Sound(ASSETS_PATH + 'audio/point' + soundExt)
-    SOUNDS['swoosh'] = pygame.mixer.Sound(ASSETS_PATH + 'audio/swoosh' + soundExt)
-    SOUNDS['wing']   = pygame.mixer.Sound(ASSETS_PATH + 'audio/wing' + soundExt)
-
+    """
+        SOUNDS['die']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/die' + soundExt)
+        SOUNDS['hit']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/hit' + soundExt)
+        SOUNDS['point']  = pygame.mixer.Sound(ASSETS_PATH + 'audio/point' + soundExt)
+        SOUNDS['swoosh'] = pygame.mixer.Sound(ASSETS_PATH + 'audio/swoosh' + soundExt)
+        SOUNDS['wing']   = pygame.mixer.Sound(ASSETS_PATH + 'audio/wing' + soundExt)
+    """
     #  welcome screen - select random background sprites
-    randBg = random.randint(0, len(BACKGROUNDS_LIST) - 1)
-    IMAGES['background'] = pygame.image.load(BACKGROUNDS_LIST[randBg]).convert()
-
+    """
+                randBg = random.randint(0, len(BACKGROUNDS_LIST) - 1)
+                IMAGES['background'] = pygame.image.load(BACKGROUNDS_LIST[randBg]).convert()
+    """
     # select random player sprites
-    randPlayer = random.randint(0, len(PLAYERS_LIST) - 1)
-    IMAGES['player'] = (
-        pygame.image.load(PLAYERS_LIST[randPlayer][0]).convert_alpha(),
-        pygame.image.load(PLAYERS_LIST[randPlayer][1]).convert_alpha(),
-        pygame.image.load(PLAYERS_LIST[randPlayer][2]).convert_alpha(),
-    )
+    """
+                randPlayer = random.randint(0, len(PLAYERS_LIST) - 1)
+                IMAGES['player'] = (
+                    pygame.image.load(PLAYERS_LIST[randPlayer][0]).convert_alpha(),
+                    pygame.image.load(PLAYERS_LIST[randPlayer][1]).convert_alpha(),
+                    pygame.image.load(PLAYERS_LIST[randPlayer][2]).convert_alpha(),
+                )
+    """
 
     # select random pipe sprites
+"""
     pipeindex = random.randint(0, len(PIPES_LIST) - 1)
     IMAGES['pipe'] = (
         pygame.transform.flip(
             pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(), False, True),
         pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(),
     )
-
+"""
     # hismask for pipes
+"""
     HITMASKS['pipe'] = (
         self._getHitmask(IMAGES['pipe'][0]),
         self._getHitmask(IMAGES['pipe'][1]),
     )
+"""
 
-    # hitmask for player
-    HITMASKS['player'] = (
-        self._getHitmask(IMAGES['player'][0]),
-        self._getHitmask(IMAGES['player'][1]),
-        self._getHitmask(IMAGES['player'][2]),
-    )
+"""    # hitmask for player
+        HITMASKS['player'] = (
+            self._getHitmask(IMAGES['player'][0]),
+            self._getHitmask(IMAGES['player'][1]),
+            self._getHitmask(IMAGES['player'][2]),
+        )
 
-    # index of player to blit on screen
+"""    # index of player to blit on screen
     self.playerIndex = 0
     self.playerIndexGen = cycle([0, 1, 2, 1])
     # iterator used to change playerIndex after every 5th iteration
     self.loopIter = 0
 
     self.playerx = int(SCREENWIDTH * 0.2)
-    self.playery = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) / 2)
-
-    self.messagex = int((SCREENWIDTH - IMAGES['message'].get_width()) / 2)
+    self.playery = int((SCREENHEIGHT *0.2))
+      # IMAGES['player'][0].get_height()) / 2)
+      # height is 512
+      # width is 288
+    self.messagex = int((SCREENWIDT*0.1))
+      # IMAGES['message'].get_width()) / 2)
     self.messagey = int(SCREENHEIGHT * 0.12)
 
     self.basex = 0
     # amount by which base can maximum shift to left
-    self.baseShift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
+    self.baseShift = 336 - 288
+     # IMAGES['base'].get_width() - IMAGES['background'].get_width()
 
     # player shm for up-down motion on welcome screen
     self.playerShmVals = {'val': 0, 'dir': 1}
     self.score = self.playerIndex = self.loopIter = 0
     self.playerx, self.playery = int(SCREENWIDTH * 0.2), int(SCREENWIDTH * 0.2)
 
-    self.baseShift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
+    self.baseShift =  336 - 288
+    # IMAGES['base'].get_width() - IMAGES['background'].get_width()
     self.done = False
 
-    playerMidPosX = self.playerx + IMAGES['player'][0].get_width() / 2
-    playerMidPosY = self.playery + IMAGES['player'][0].get_height() / 2
+    playerMidPosX = self.playerx + 34 / 2
+    playerMidPosY = self.playery + 24 / 2
     self.observation = {
       'playerMidPosX': playerMidPosX,
       'playerMidPosY': playerMidPosY
@@ -287,7 +315,7 @@ class FlappybirdEnv(gym.Env):
     elif options['firstFlap'] == False and action == 1:
       SOUNDS['wing'].play()
       # secoond flap onwards
-      if self.playery > -2 * IMAGES['player'][0].get_height():
+      if self.playery > -2 * PLAYER_HEIGHTS:
         self.playerVelY = self.playerFlapAcc
         self.playerFlapped = True
         SOUNDS['wing'].play()
@@ -300,8 +328,8 @@ class FlappybirdEnv(gym.Env):
         self.upperPipes, self.lowerPipes)
 
       # check for score
-      playerMidPosX = self.playerx + IMAGES['player'][0].get_width() / 2
-      playerMidPosY = self.playery + IMAGES['player'][0].get_height() / 2
+      playerMidPosX = self.playerx + PLAYER_WIDTH / 2
+      playerMidPosY = self.playery + PLAYER_HEIGHTS / 2
 
 
       self.observation['playerMidPosX'] = playerMidPosX
@@ -310,7 +338,7 @@ class FlappybirdEnv(gym.Env):
       self.info['lowerPipes'] = self.lowerPipes
 
       for pipe in self.upperPipes:
-          pipeMidPos = pipe['x'] + IMAGES['pipe'][0].get_width() / 2
+          pipeMidPos = pipe['x'] + PIPE_WIDTH / 2
           if pipeMidPos <= playerMidPosX < pipeMidPos + 4:
               self.score += 1
               SOUNDS['point'].play()
@@ -330,7 +358,7 @@ class FlappybirdEnv(gym.Env):
         # }
         # """
         self.done = True
-        self.close()
+        self.reset()
         return self.observation, self.score, self.done, self.info
 
       # playerIndex basex change
@@ -352,7 +380,7 @@ class FlappybirdEnv(gym.Env):
           # more rotation to cover the threshold (calculated in visible rotation)
           self.playerRot = 45
 
-      self.playerHeight = IMAGES['player'][self.playerIndex].get_height()
+      self.playerHeight = PLAYER_HEIGHTS
       self.playery += min(
         self.playerVelY, BASEY - self.playery - self.playerHeight)
 
@@ -368,7 +396,7 @@ class FlappybirdEnv(gym.Env):
           self.lowerPipes.append(newPipe[1])
 
       # remove first pipe if its out of the screen
-      if self.upperPipes[0]['x'] < -IMAGES['pipe'][0].get_width():
+      if self.upperPipes[0]['x'] < -PIPE_WIDTH:
           self.upperPipes.pop(0)
           self.lowerPipes.pop(0)
 
@@ -394,10 +422,9 @@ class FlappybirdEnv(gym.Env):
       if self.playerRot <= self.playerRotThr:
           visibleRot = self.playerRot
 
-      playerSurface = pygame.transform.rotate(
-        IMAGES['player'][self.playerIndex], visibleRot)
-
       try:
+        playerSurface = pygame.transform.rotate(
+          IMAGES['player'][self.playerIndex], visibleRot)
         SCREEN.blit(playerSurface, (self.playerx, self.playery))
       except Exception as e:
         pass
@@ -414,7 +441,7 @@ class FlappybirdEnv(gym.Env):
     score = crashInfo['score']
     playerx = SCREENWIDTH * 0.2
     playery = crashInfo['y']
-    playerHeight = IMAGES['player'][0].get_height()
+    playerHeight = PLAYER_HEIGHTS
     playerVelY = crashInfo['playerVelY']
     playerAccY = 2
     playerRot = crashInfo['playerRot']
@@ -465,10 +492,10 @@ class FlappybirdEnv(gym.Env):
           pass
         self._showScore(self.score)
 
-        playerSurface = pygame.transform.rotate(IMAGES['player'][1],
-          self.playerRot)
-
         try:
+
+          playerSurface = pygame.transform.rotate(IMAGES['player'][1],
+            self.playerRot)
           SCREEN.blit(playerSurface, (playerx,self.playery))
           SCREEN.blit(IMAGES['gameover'], (50, 180))
         except Exception as e:
@@ -497,7 +524,7 @@ class FlappybirdEnv(gym.Env):
     # y of gap between upper and lower pipe
     gapY = random.randrange(0, int(BASEY * 0.6 - PIPEGAPSIZE))
     gapY += int(BASEY * 0.2)
-    pipeHeight = IMAGES['pipe'][0].get_height()
+    pipeHeight = PIPE_HEIGHTS
     pipeX = SCREENWIDTH + 10
 
     return [
@@ -512,23 +539,23 @@ class FlappybirdEnv(gym.Env):
     totalWidth = 0 # total width of all numbers to be printed
 
     for digit in scoreDigits:
-        totalWidth += IMAGES['numbers'][digit].get_width()
+        totalWidth += NUMBER_WIDTH
 
     Xoffset = (SCREENWIDTH - totalWidth) / 2
 
     for digit in scoreDigits:
       try:
         SCREEN.blit(IMAGES['numbers'][digit], (Xoffset, SCREENHEIGHT * 0.1))
+        Xoffset += IMAGES['numbers'][digit].get_width()
       except Exception as e:
         pass
-      Xoffset += IMAGES['numbers'][digit].get_width()
 
 
   def _checkCrash(self, player, upperPipes, lowerPipes):
     """returns True if player collders with base or pipes."""
     pi = player['index']
-    player['w'] = IMAGES['player'][0].get_width()
-    player['h'] = IMAGES['player'][0].get_height()
+    player['w'] = PLAYER_WIDTH
+    player['h'] = PLAYER_HEIGHTS
 
     # if player crashes into ground
     if player['y'] + player['h'] >= BASEY - 1:
@@ -537,8 +564,8 @@ class FlappybirdEnv(gym.Env):
 
         playerRect = pygame.Rect(player['x'], player['y'],
                       player['w'], player['h'])
-        pipeW = IMAGES['pipe'][0].get_width()
-        pipeH = IMAGES['pipe'][0].get_height()
+        pipeW = PIPE_WIDTH
+        pipeH = PIPE_HEIGHTS
 
         for uPipe, lPipe in zip(upperPipes, lowerPipes):
             # upper and lower pipe rects
