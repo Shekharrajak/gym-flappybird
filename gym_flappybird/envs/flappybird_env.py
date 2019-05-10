@@ -158,12 +158,70 @@ class FlappybirdEnv(gym.Env):
         self._getHitmask(IMAGES['pipe'][1]),
     )
 
+    # print('Hitmasks - pipe- ', HITMASKS['pipe'] )
+    # for p in HITMASKS['pipe']:
+    #   print('len of hitmast pipe ', len(HITMASKS['pipe'])) # 2
+    #   for pp in p:
+    #     print('pp len ', len(pp)) # 320
+
+    for i in range(len(HITMASKS['pipe'])):
+      hitmask_pipe = open(
+        ASSETS_PATH + "/hitmask/pipe{0}.txt".format(i),"w")
+      hitmask_pipe.write('') # clear old values
+      for listOfBool in HITMASKS['pipe'][i]:
+        hitmask_pipe.write(",".join(str(b) for b in listOfBool))
+        hitmask_pipe.write("\n")
+      hitmask_pipe.close()
+    """
+        hitmask_pipe0 = open(ASSETS_PATH + "/hitmask/pipe0.txt","w")
+        # \n is placed to indicate EOL (End of Line)
+        hitmask_pipe0.write(str(HITMASKS['pipe'][0]))
+        hitmask_pipe0.close() #to change file access modes
+
+        hitmask_pipe1 = open(ASSETS_PATH + "/hitmask/pipe1.txt","w")
+        # \n is placed to indicate EOL (End of Line)
+        hitmask_pipe1.write(str(HITMASKS['pipe'][1]))
+        hitmask_pipe1.close() #to change file access modes
+    """
+
     # hitmask for player
     HITMASKS['player'] = (
         self._getHitmask(IMAGES['player'][0]),
         self._getHitmask(IMAGES['player'][1]),
         self._getHitmask(IMAGES['player'][2]),
     )
+
+    # for player1 in HITMASKS['player']:
+    #   print('len of hitmast player ', len(HITMASKS['player'])) # 3
+    #   for ppplayer2 in player1:
+    #     print('player2 len ', len(ppplayer2)) # 24
+
+    for i in range(len(HITMASKS['player'])):
+      hitmask_player = open(
+        ASSETS_PATH + "/hitmask/player{0}.txt".format(i),"w")
+      hitmask_player.write('') # clear old values
+      for listOfBool in HITMASKS['player'][i]:
+        hitmask_player.write(",".join(str(b) for b in listOfBool))
+        hitmask_player.write("\n")
+      hitmask_player.close()
+    """
+        # print('Hitmasks - player', HITMASKS['player'] )
+        hitmask_player0 = open(ASSETS_PATH + "/hitmask/player0.txt","w")
+        # \n is placed to indicate EOL (End of Line)
+        hitmask_player0.write(str(HITMASKS['player'][0]))
+        hitmask_player0.close() #to change file access modes
+
+        hitmask_player1 = open(ASSETS_PATH + "/hitmask/player1.txt","w")
+        # \n is placed to indicate EOL (End of Line)
+        hitmask_player1.write(str(HITMASKS['player'][1]))
+        hitmask_player1.close() #to change file access modes
+
+
+        hitmask_player2 = open(ASSETS_PATH + "/hitmask/player2.txt","w")
+        # \n is placed to indicate EOL (End of Line)
+        hitmask_player2.write(str(HITMASKS['player'][2]))
+        hitmask_player2.close() #to change file access modes
+    """
 
     # index of player to blit on screen
     self.playerIndex = 0
