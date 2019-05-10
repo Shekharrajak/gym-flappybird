@@ -191,8 +191,10 @@ class FlappybirdEnv(gym.Env):
 
     playerMidPosX = self.playerx + IMAGES['player'][0].get_width() / 2
     playerMidPosY = self.playery + IMAGES['player'][0].get_height() / 2
-    self.observation['playerMidPosX'] = playerMidPosX
-    self.observation['playerMidPosY'] = playerMidPosY
+    self.observation = {
+      'playerMidPosX': playerMidPosX,
+      'playerMidPosY': playerMidPosY
+    }
     self.info = {}
 
   def _showWelcomeAnimation(self):
