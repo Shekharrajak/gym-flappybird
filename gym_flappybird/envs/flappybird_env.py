@@ -627,7 +627,7 @@ class FlappybirdEnv(gym.Env):
         for y in xrange(rect.height):
             # need to verify this line: previously it was and
             # TypeError: 'bool' object is not subscriptable
-            if hitmask1[x1+x][y1+y]
+            if hitmask1[x1+x][y1+y]:
               if hitmask2[x2+x][y2+y]:
                 return True
     return False
