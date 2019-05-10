@@ -24,7 +24,7 @@ Setup and Run
 
 ```
 
-cd gym-soccer
+cd gym-flappybird
 pip install -e .
 
 ```
