@@ -181,7 +181,32 @@ class FlappybirdEnv(gym.Env):
             self._getHitmask(IMAGES['pipe'][1]),
         )
     """
+    HITMASKS['pipe'] = [[],[]]
+    # print(HITMASKS)
 
+    filepath = ASSETS_PATH + "hitmask/pipes"
+    from os import listdir
+    from os.path import isfile, join
+    pipefiles = [f for f in listdir(filepath) if isfile(join(filepath, f))]
+
+    for i, pipeFile in enumerate(pipefiles):
+      with open(ASSETS_PATH + "hitmask/pipes/" + pipeFile) as fp:
+         for cnt, line in enumerate(fp):
+             # print("Line {}: {}".format(cnt, line))
+             # HITMASKS['pipe'][i] += [True if l == 'True' else False for l in line.split(',')]
+
+
+    HITMASKS['player'] = [[], [], []]
+    filepath = ASSETS_PATH + "hitmask/players"
+    playerfiles = [f for f in listdir(filepath) if isfile(join(filepath, f))]
+
+    for i, playerFile in enumerate(playerfiles):
+      with open(ASSETS_PATH + "hitmask/players/" + playerFile) as fp:
+         for cnt, line in enumerate(fp):
+             # print("playerFile Line {}: {}".format(cnt, line))
+             HITMASKS['player'][i] += [True if l == 'True' else False for l in line.split(',')]
+
+    # print(HITMASKS)
     """    # hitmask for player
             HITMASKS['player'] = (
                 self._getHitmask(IMAGES['player'][0]),
