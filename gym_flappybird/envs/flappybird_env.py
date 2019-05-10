@@ -627,8 +627,13 @@ class FlappybirdEnv(gym.Env):
         for y in xrange(rect.height):
             # need to verify this line: previously it was and
             # TypeError: 'bool' object is not subscriptable
+            print('x1 ', x1, ' ', y1 )
+            print('x2 ', x2, ' ', y2)
+            print('hitmask1[x1+x]1 ', hitmask1[x1+x])
             if hitmask1[x1+x][y1+y]:
+              print('hitmask1[x1+x][y1+y] ', hitmask1[x1+x][y1+y])
               if hitmask2[x2+x][y2+y]:
+                print('hitmask2[x2+x][y2+y] ', hitmask2[x2+x][y2+y])
                 return True
     return False
 
