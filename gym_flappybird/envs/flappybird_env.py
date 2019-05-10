@@ -188,9 +188,11 @@ class FlappybirdEnv(gym.Env):
 
     self.baseShift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
     self.done = False
-    self.observation = {
-        'playerMidPos': self.playerx + IMAGES['player'][0].get_width() / 2
-    }
+
+    playerMidPosX = self.playerx + IMAGES['player'][0].get_width() / 2
+    playerMidPosY = self.playery + IMAGES['player'][0].get_height() / 2
+    self.observation['playerMidPosX'] = playerMidPosX
+    self.observation['playerMidPosY'] = playerMidPosY
     self.info = {}
 
   def _showWelcomeAnimation(self):
@@ -288,15 +290,18 @@ class FlappybirdEnv(gym.Env):
         self.upperPipes, self.lowerPipes)
 
       # check for score
-      playerMidPos = self.playerx + IMAGES['player'][0].get_width() / 2
+      playerMidPosX = self.playerx + IMAGES['player'][0].get_width() / 2
+      playerMidPosY = self.playery + IMAGES['player'][0].get_height() / 2
 
-      self.observation['playerMidPos'] = playerMidPos
+
+      self.observation['playerMidPosX'] = playerMidPosX
+      self.observation['playerMidPosY'] = playerMidPosY
       self.info['upperPipes'] = self.upperPipes
       self.info['lowerPipes'] = self.lowerPipes
 
       for pipe in self.upperPipes:
           pipeMidPos = pipe['x'] + IMAGES['pipe'][0].get_width() / 2
-          if pipeMidPos <= playerMidPos < pipeMidPos + 4:
+          if pipeMidPos <= playerMidPosX < pipeMidPos + 4:
               self.score += 1
               SOUNDS['point'].play()
 
