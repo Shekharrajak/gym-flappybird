@@ -193,8 +193,7 @@ class FlappybirdEnv(gym.Env):
       with open(ASSETS_PATH + "hitmask/pipes/" + pipeFile) as fp:
          for cnt, line in enumerate(fp):
              # print("Line {}: {}".format(cnt, line))
-             # HITMASKS['pipe'][i] += [True if l == 'True' else False for l in line.split(',')]
-
+             HITMASKS['pipe'][i] += [True if l == 'True' else False for l in line.split(',')]
 
     HITMASKS['player'] = [[], [], []]
     filepath = ASSETS_PATH + "hitmask/players"
