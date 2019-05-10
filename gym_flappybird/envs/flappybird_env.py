@@ -143,11 +143,11 @@ class FlappybirdEnv(gym.Env):
     else:
         soundExt = '.ogg'
     """
-        SOUNDS['die']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/die' + soundExt)
-        SOUNDS['hit']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/hit' + soundExt)
-        SOUNDS['point']  = pygame.mixer.Sound(ASSETS_PATH + 'audio/point' + soundExt)
-        SOUNDS['swoosh'] = pygame.mixer.Sound(ASSETS_PATH + 'audio/swoosh' + soundExt)
-        SOUNDS['wing']   = pygame.mixer.Sound(ASSETS_PATH + 'audio/wing' + soundExt)
+        # # SOUNDS['die']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/die' + soundExt)
+        # SOUNDS['hit']    = pygame.mixer.Sound(ASSETS_PATH + 'audio/hit' + soundExt)
+        # SOUNDS['point']  = pygame.mixer.Sound(ASSETS_PATH + 'audio/point' + soundExt)
+        # SOUNDS['swoosh'] = pygame.mixer.Sound(ASSETS_PATH + 'audio/swoosh' + soundExt)
+        # SOUNDS['wing']   = pygame.mixer.Sound(ASSETS_PATH + 'audio/wing' + soundExt)
     """
     #  welcome screen - select random background sprites
     """
@@ -165,30 +165,32 @@ class FlappybirdEnv(gym.Env):
     """
 
     # select random pipe sprites
-"""
-    pipeindex = random.randint(0, len(PIPES_LIST) - 1)
-    IMAGES['pipe'] = (
-        pygame.transform.flip(
-            pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(), False, True),
-        pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(),
-    )
-"""
-    # hismask for pipes
-"""
-    HITMASKS['pipe'] = (
-        self._getHitmask(IMAGES['pipe'][0]),
-        self._getHitmask(IMAGES['pipe'][1]),
-    )
-"""
-
-"""    # hitmask for player
-        HITMASKS['player'] = (
-            self._getHitmask(IMAGES['player'][0]),
-            self._getHitmask(IMAGES['player'][1]),
-            self._getHitmask(IMAGES['player'][2]),
+    """
+        pipeindex = random.randint(0, len(PIPES_LIST) - 1)
+        IMAGES['pipe'] = (
+            pygame.transform.flip(
+                pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(), False, True),
+            pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(),
         )
+    """
+        # hismask for pipes
+    """
+    # get values in normal mode and paste it here
+        HITMASKS['pipe'] = (
+            self._getHitmask(IMAGES['pipe'][0]),
+            self._getHitmask(IMAGES['pipe'][1]),
+        )
+    """
 
-"""    # index of player to blit on screen
+    """    # hitmask for player
+            HITMASKS['player'] = (
+                self._getHitmask(IMAGES['player'][0]),
+                self._getHitmask(IMAGES['player'][1]),
+                self._getHitmask(IMAGES['player'][2]),
+            )
+
+    """
+    # index of player to blit on screen
     self.playerIndex = 0
     self.playerIndexGen = cycle([0, 1, 2, 1])
     # iterator used to change playerIndex after every 5th iteration
@@ -199,7 +201,7 @@ class FlappybirdEnv(gym.Env):
       # IMAGES['player'][0].get_height()) / 2)
       # height is 512
       # width is 288
-    self.messagex = int((SCREENWIDT*0.1))
+    self.messagex = int((SCREENWIDTH*0.1))
       # IMAGES['message'].get_width()) / 2)
     self.messagey = int(SCREENHEIGHT * 0.12)
 
@@ -313,12 +315,12 @@ class FlappybirdEnv(gym.Env):
       except Exception as e:
         pass
     elif options['firstFlap'] == False and action == 1:
-      SOUNDS['wing'].play()
+      # SOUNDS['wing'].play()
       # secoond flap onwards
       if self.playery > -2 * PLAYER_HEIGHTS:
         self.playerVelY = self.playerFlapAcc
         self.playerFlapped = True
-        SOUNDS['wing'].play()
+        # SOUNDS['wing'].play()
       # check for crash here
       crashTest = self._checkCrash({
         'x': self.playerx,
@@ -341,7 +343,7 @@ class FlappybirdEnv(gym.Env):
           pipeMidPos = pipe['x'] + PIPE_WIDTH / 2
           if pipeMidPos <= playerMidPosX < pipeMidPos + 4:
               self.score += 1
-              SOUNDS['point'].play()
+              # SOUNDS['point'].play()
 
       if crashTest[0]:
         # """
@@ -452,9 +454,10 @@ class FlappybirdEnv(gym.Env):
     upperPipes, lowerPipes = crashInfo['upperPipes'], crashInfo['lowerPipes']
 
     # play hit and die sounds
-    SOUNDS['hit'].play()
+    # SOUNDS['hit'].play()
     if not crashInfo['groundCrash']:
-        SOUNDS['die'].play()
+        # SOUNDS['die'].play()
+        pass
 
     while True:
         for event in pygame.event.get():
