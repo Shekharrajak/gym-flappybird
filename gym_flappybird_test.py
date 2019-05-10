@@ -13,7 +13,8 @@ ACTIONS = [0 ,1]
 for i in range(100):
     a = random.choice(ACTIONS)
     # print(a)
-    env.step(a)
+    obs, rewards, done, info = env.step(a)
+    print(obs, ' - ', rewards , ' - ', done , ' - ', info)
     # env.render()
 
 
