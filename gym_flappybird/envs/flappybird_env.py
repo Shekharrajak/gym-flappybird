@@ -69,8 +69,11 @@ class FlappybirdEnv(gym.Env):
     global SCREEN, FPSCLOCK
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
-    SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
-    pygame.display.set_caption('Flappy Bird')
+    try:
+      SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
+      pygame.display.set_caption('Flappy Bird')
+    except Exception as e:
+      pass
     self._load()
     self._showWelcomeAnimation()
 
@@ -80,7 +83,10 @@ class FlappybirdEnv(gym.Env):
     return self.observation, self.score, self.done, self.info
 
   def render(self, mode='human', close=False):
-    pygame.display.update()
+    try:
+      pygame.display.update()
+    except Exception as e:
+      pass
     FPSCLOCK.tick(FPS)
 
   def close(self):
@@ -257,11 +263,15 @@ class FlappybirdEnv(gym.Env):
       self.playerRotThr  =  20   # rotation threshold
       self.playerFlapAcc =  -9   # players speed on flapping
       self.playerFlapped = False # True when player flaps
-      SCREEN.blit(IMAGES['background'], (0,0))
-      SCREEN.blit(IMAGES['player'][self.playerIndex],
-                  (self.playerx, self.playery + self.playerShmVals['val']))
-      SCREEN.blit(IMAGES['message'], (self.messagex, self.messagey))
-      SCREEN.blit(IMAGES['base'], (self.basex, BASEY))
+
+      try:
+        SCREEN.blit(IMAGES['background'], (0,0))
+        SCREEN.blit(IMAGES['player'][self.playerIndex],
+                    (self.playerx, self.playery + self.playerShmVals['val']))
+        SCREEN.blit(IMAGES['message'], (self.messagex, self.messagey))
+        SCREEN.blit(IMAGES['base'], (self.basex, BASEY))
+      except Exception as e:
+        pass
     elif options['firstFlap'] == False and action == 1:
       SOUNDS['wing'].play()
       # secoond flap onwards
@@ -348,13 +358,19 @@ class FlappybirdEnv(gym.Env):
           self.lowerPipes.pop(0)
 
       # draw sprites
-      SCREEN.blit(IMAGES['background'], (0,0))
+      try:
+        SCREEN.blit(IMAGES['background'], (0,0))
+      except Exception as e:
+        pass
 
       for uPipe, lPipe in zip(self.upperPipes, self.lowerPipes):
+        try:
           SCREEN.blit(IMAGES['pipe'][0], (uPipe['x'], uPipe['y']))
           SCREEN.blit(IMAGES['pipe'][1], (lPipe['x'], lPipe['y']))
+          SCREEN.blit(IMAGES['base'], (self.basex, BASEY))
+        except Exception as e:
+          pass
 
-      SCREEN.blit(IMAGES['base'], (self.basex, BASEY))
       # print score so player overlaps the score
       self._showScore(self.score)
 
@@ -365,9 +381,16 @@ class FlappybirdEnv(gym.Env):
 
       playerSurface = pygame.transform.rotate(
         IMAGES['player'][self.playerIndex], visibleRot)
-      SCREEN.blit(playerSurface, (self.playerx, self.playery))
 
-    pygame.display.update()
+      try:
+        SCREEN.blit(playerSurface, (self.playerx, self.playery))
+      except Exception as e:
+        pass
+
+    try:
+      pygame.display.update()
+    except Exception as e:
+      pass
     FPSCLOCK.tick(FPS)
     return self.observation, self.score, self.done, self.info
 
@@ -414,23 +437,33 @@ class FlappybirdEnv(gym.Env):
             if playerRot > -90:
                 self.playerRot -= playerVelRot
 
-        # draw sprites
-        SCREEN.blit(IMAGES['background'], (0,0))
+        try:
+          # draw sprites
+          SCREEN.blit(IMAGES['background'], (0,0))
 
-        for uPipe, lPipe in zip(pperPipes, owerPipes):
-            SCREEN.blit(IMAGES['pipe'][0], (uPipe['x'], uPipe['y']))
-            SCREEN.blit(IMAGES['pipe'][1], (lPipe['x'], lPipe['y']))
+          for uPipe, lPipe in zip(pperPipes, owerPipes):
+              SCREEN.blit(IMAGES['pipe'][0], (uPipe['x'], uPipe['y']))
+              SCREEN.blit(IMAGES['pipe'][1], (lPipe['x'], lPipe['y']))
 
-        SCREEN.blit(IMAGES['base'], (basex, BASEY))
+          SCREEN.blit(IMAGES['base'], (basex, BASEY))
+        except Exception as e:
+          pass
         self._showScore(self.score)
 
         playerSurface = pygame.transform.rotate(IMAGES['player'][1],
           self.playerRot)
-        SCREEN.blit(playerSurface, (playerx,self.playery))
-        SCREEN.blit(IMAGES['gameover'], (50, 180))
+
+        try:
+          SCREEN.blit(playerSurface, (playerx,self.playery))
+          SCREEN.blit(IMAGES['gameover'], (50, 180))
+        except Exception as e:
+          pass
 
         FPSCLOCK.tick(FPS)
-        pygame.display.update()
+        try:
+          pygame.display.update()
+        except Exception as e:
+          pass
 
 
   def _playerShm(self, playerShm):
@@ -469,8 +502,11 @@ class FlappybirdEnv(gym.Env):
     Xoffset = (SCREENWIDTH - totalWidth) / 2
 
     for digit in scoreDigits:
+      try:
         SCREEN.blit(IMAGES['numbers'][digit], (Xoffset, SCREENHEIGHT * 0.1))
-        Xoffset += IMAGES['numbers'][digit].get_width()
+      except Exception as e:
+        pass
+      Xoffset += IMAGES['numbers'][digit].get_width()
 
 
   def _checkCrash(self, player, upperPipes, lowerPipes):
